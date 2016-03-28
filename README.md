@@ -1,6 +1,6 @@
-# PostgreSQL and NodeJS
+# WattZen Web
 
-Check out the blog post >> http://mherman.org/blog/2015/02/12/postgresql-and-nodejs
+Check out the blog post for background >> http://mherman.org/blog/2015/02/12/postgresql-and-nodejs
 
 ## Quick Start
 
