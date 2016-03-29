@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./server/routes/index');
 
 var app = express();
+app.use(favicon('./client/public/favicon.ico'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
