@@ -29,14 +29,16 @@ router.post('/api/v1/todos', function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-         requestify.get('https://api.particle.io/v1/devices/39003f000247343339373536/analogvalue\?access_token=fee27c1ec9f8c9dbd8188886f4f60c995aabfbd6').then(function(response) {
+         requestify.get('https://api.particle.io/v1/devices/39003f000247343339373536/analogvalue\?access_token=fee27c1ec9f8c9dbd8188886f4f60c995aabfbd6')
+         .then(function(response) {
             // Get the response body (JSON parsed - JSON response or jQuery object in case of XML response)
             response.getBody();
 
             // Get the response raw body
             var body = response.body;
             var bodyJson = JSON.parse(body)
-            data.energyvalue = bodyJson.result;
+            currentInAmps = 2000*(bodyJson.result - 1.65)/100
+            data.energyvalue = 2000*(bodyJson.result - 1.65)/100;
 
              // SQL Query > Insert Data
             client.query("INSERT INTO devices(text, energyvalue) values($1, $2)", [data.text, data.energyvalue]);
@@ -54,6 +56,29 @@ router.post('/api/v1/todos', function(req, res) {
                 done();
                 return res.json(results);
             });
+        }, function(err){
+            console.log(err); 
+            // SQL Query > Insert Data
+            console.log('STATUS: ' + res.statuscode);
+            data.energyvalue = res.statuscode;
+            client.query("INSERT INTO devices(text, energyvalue) values($1, $2)", [data.text, data.energyvalue]);
+            // SQL Query > Select Data
+            var query = client.query("SELECT * FROM devices ORDER BY id ASC");
+
+            // Stream results back one row at a time
+            query.on('row', function(row) {
+                results.push(row);
+            });
+
+            // After all data is returned, close connection and return results
+            query.on('end', function() {
+                done();
+                return res.json(results);
+            });
+        })
+        .fail(function(res){
+             // SQL Query > Insert Data
+            console.log('STATUS: ' + res.statuscode);
         });
 
     });
