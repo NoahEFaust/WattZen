@@ -29,7 +29,7 @@ router.post('/api/v1/todos', function(req, res) {
           return res.status(500).json({ success: false, data: err});
         }
 
-         requestify.get('https://api.particle.io/v1/devices/39003f000247343339373536/analogvalue\?access_token=fee27c1ec9f8c9dbd8188886f4f60c995aabfbd6')
+         requestify.get('https://api.particle.io/v1/devices/230043001347343339383037/analogvalue\?access_token=507bb79eb1ebaf88f099dede80e495efb35a83f4')
          .then(function(response) {
             // Get the response body (JSON parsed - JSON response or jQuery object in case of XML response)
             response.getBody();
@@ -37,7 +37,7 @@ router.post('/api/v1/todos', function(req, res) {
             // Get the response raw body
             var body = response.body;
             var bodyJson = JSON.parse(body)
-            currentInAmps = 2000*(bodyJson.result - 1.65)/100
+            //currentInAmps = 2000*(bodyJson.result - 1.65)/100
             data.energyvalue = 2000*(bodyJson.result - 1.65)/100;
 
              // SQL Query > Insert Data
