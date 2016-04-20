@@ -5,15 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./server/routes/index');
+var routes = require('./server/routes/index.js');
 
 var app = express();
 app.use(favicon('./client/public/favicon.ico'));
 
-// view engine setup
+// view engine 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+// server side route for the partials files
+app.get('/views/*', function(req, res){
+    res.render('../../public/views/' + req.params);
+});
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));

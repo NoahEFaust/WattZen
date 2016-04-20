@@ -1,0 +1,32 @@
+<div ng-app="wattzen">
+   <div class="container">
+
+    <div class="header">
+      <h1>WattZen!</h1>
+      <hr>
+      <h1 class="lead">Welcome! Add device below..</h1>
+    </div>
+
+    <div class="todo-form">
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control input-lg" placeholder="Enter device name..." ng-model="formData.text">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="createTodo()">Add Device</button>
+      </form>
+    </div>
+
+    <br>
+
+    <div class="todo-list"> 
+      <table>
+          <td>Device Name</td>
+          <td>Current (in Amps)</td>
+        <tr ng-repeat="todo in todoData">
+          <td>{{ todo.text }}</td>
+          <td>{{ todo.energyvalue}} </td>
+      </table>
+    </div>
+
+  </div>
+</div>

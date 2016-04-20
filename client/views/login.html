@@ -1,0 +1,19 @@
+<div ng-app="wattzen">
+ <div class="container">
+      <div class="header">
+          <h1>WattZen!</h1>
+          <hr>
+          <h1 class="lead">Sign Up below</h1>
+          <div class="login-form">
+            <form>
+              <div class="form-group">
+                <input type="email" class="form-control input-lg" placeholder="Enter email..." ng-model="formData.email">
+                <input type="password" class="form-control input-lg" placeholder="Password..." ng-model="formData.password">
+                <input type="phone" class="form-control input-lg" placeholder="Phone number..." ng-model="formData.phone">
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="createUser()">Sign Up</button>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
