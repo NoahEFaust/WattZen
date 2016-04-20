@@ -1,20 +1,42 @@
-double analogvalue;
-int readIn = A0;
+#include "math.h"
+int analogvals[2500];
+int cnt;
+float Vmid = 1.61;
+float RMScurrent;
 char publishString[40];
 
-//continuously called
-void loop() {
-    // read in analog value from A0, convert, and publish for logging
-    float aReadIn = (float) analogRead(readIn);
-    analogvalue = (aReadIn/4095)*3.3;
-    sprintf(publishString, "%lf", analogvalue);
-    Particle.publish("analogvalue",publishString);
-    delay(1000);
+void setup() {
+
 }
 
-//setup up variable for api
-void setup() {
-    Particle.variable("analogvalue", &analogvalue, DOUBLE); 
-    pinMode(readIn,INPUT);  // Our photoresistor pin is input (reading the photoresistor)
-    
+void loop() {
+
+	//very quickly sample the signal
+	cnt = 0;
+
+	while(cnt<2500){
+	    
+	    analogvals[cnt] = analogRead(A0); ///store current read to the array location cnt
+	    cnt = cnt + 1;
+	    
+	}
+
+	//Do transform the raw readings to squared current values
+	cnt = 0;
+	RMScurrent = 0;
+
+
+	while(cnt<2500){
+	    
+	    RMScurrent = RMScurrent + pow((3.3*((float) analogvals[cnt])/4095-Vmid)*200,2); ///store current read to the array location cnt
+	    cnt = cnt + 1;
+	    
+	}
+
+	RMScurrent = sqrt(RMScurrent/2500);
+
+	sprintf(publishString, "%lf", RMScurrent);
+	Particle.publish("RMScurrent",publishString);
+	delay(1000);
+ 
 }
