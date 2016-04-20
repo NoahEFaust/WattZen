@@ -56,7 +56,7 @@ router.post('/api/v1/user', function(req, res) {
 router.post('/api/v1/rmscurrent', function(req, res) {
     
     particle.getVariable({ deviceId: '39003f000247343339373536', name: 'RMScurrent', auth: 'fee27c1ec9f8c9dbd8188886f4f60c995aabfbd6' }).then(function(data) {
-      console.log('Device variable retrieved successfully:', data);
+      //console.log('Device variable retrieved successfully:', data);
 
       pg.connect(connectionString, function(err, client, done){
         if(err) {

@@ -10,11 +10,8 @@ var client = new pg.Client({
 	port: '5432'
 });
 
-var query = client.query('CREATE TABLE devices(id SERIAL PRIMARY KEY,text VARCHAR(40) not null,energyvalue double precision)');
-query.on('end', function() { client.end(); });
-
 var query = client.query('CREATE TABLE users(email VARCHAR(40) PRIMARY KEY, password VARCHAR(40) not null,phonenumber TEXT not null)');
 query.on('end', function() { client.end(); });
 
-var query = client.query('CREATE TABLE currentvalues(deviceid VARCHAR(40) PRIMARY KEY, timeread TIMESTAMP WITH TIME ZONE not null,rmscurrent double precision not null)');
+var query = client.query('CREATE TABLE currentvalues(id SERIAL PRIMARY KEY, deviceid VARCHAR(40), timeread TIMESTAMP WITH TIME ZONE not null,rmscurrent double precision not null)');
 query.on('end', function() { client.end(); });
