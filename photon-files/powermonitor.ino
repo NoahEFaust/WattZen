@@ -37,7 +37,7 @@ void loop() {
             cnt2 = cnt2 + 1;
         }
         
-        RMScurrent = RMScurrent + pow((3.3*avgsamp/4095-Vmid)*20,2);//convert to a current, square it, and sum
+        RMScurrent = RMScurrent + pow((3.3*avgsamp/40950-Vmid)*20,2);//convert to a current, square it, and sum
     }
     
     RMScurrent = sqrt(RMScurrent/250);//root mean of 2500/10 = 250 averaged samples
