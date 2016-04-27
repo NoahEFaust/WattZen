@@ -60,7 +60,7 @@ void loop() {
         
     }
     
-    RMScurrent = sqrt(RMScurrent/(2500/n_avg)) - 0.12;//root mean
+    RMScurrent = sqrt(RMScurrent/(2500/n_avg)) - 0.16;//root mean
     
     
     sprintf(publishString, "%lf", RMScurrent);
